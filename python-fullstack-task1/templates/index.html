@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --aqua: #CADEDB;
+        --aqua-dark: #9BBFBB;
+        --aqua-deeper: #6A9E99;
+        --aqua-text: #2E5552;
+        --porcelain: #F5E3E3;
+        --porcelain-dark: #E8C8C8;
+        --porcelain-text: #7A3F3F;
+        --white: #FDFAF9;
+        --surface: #F9F4F4;
+        --border: rgba(202, 222, 219, 0.6);
+        --border-strong: #CADEDB;
+        --text-primary: #1E3533;
+        --text-secondary: #5A7875;
+        --text-muted: #8AACAA;
+        --shadow-sm: 0 1px 3px rgba(46, 85, 82, 0.08);
+        --radius: 12px;
+        --radius-sm: 8px;
+        --radius-pill: 999px;
+      }
+
+      body {
+        font-family: 'DM Sans', sans-serif;
+        background: var(--surface);
+        color: var(--text-primary);
+        min-height: 100vh;
+        padding: 3rem 1.5rem;
+      }
+
+      .page-wrapper { max-width: 720px; margin: 0 auto; }
+
+      .page-header { margin-bottom: 2rem; }
+      .page-header h1 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 2rem;
+        font-weight: 400;
+        color: var(--text-primary);
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+      .page-header p {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        margin-top: 0.35rem;
+      }
+
+      .add-card {
+        background: var(--porcelain);
+        border: 1px solid var(--porcelain-dark);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .add-card-label {
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--porcelain-text);
+        margin-bottom: 0.875rem;
+      }
+
+      .form-row { display: flex; gap: 0.75rem; align-items: flex-end; flex-wrap: wrap; }
+
+      .field-group { flex: 1; min-width: 160px; display: flex; flex-direction: column; gap: 0.3rem; }
+      .field-group label {
+        font-size: 0.72rem;
+        font-weight: 500;
+        color: var(--porcelain-text);
+        letter-spacing: 0.02em;
+      }
+      .field-group input {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.875rem;
+        background: var(--white);
+        border: 1px solid var(--porcelain-dark);
+        border-radius: var(--radius-sm);
+        padding: 0.6rem 0.875rem;
+        color: var(--text-primary);
+        outline: none;
+        transition: border-color 0.15s, box-shadow 0.15s;
+        width: 100%;
+      }
+      .field-group input::placeholder { color: var(--text-muted); }
+      .field-group input:focus {
+        border-color: var(--aqua-deeper);
+        box-shadow: 0 0 0 3px rgba(202, 222, 219, 0.5);
+      }
+
+      .btn-add {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.875rem;
+        font-weight: 600;
+        background: var(--aqua-text);
+        color: var(--aqua);
+        border: none;
+        border-radius: var(--radius-sm);
+        padding: 0.65rem 1.4rem;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.15s, transform 0.1s;
+      }
+      .btn-add:hover { background: #1a4340; }
+      .btn-add:active { transform: scale(0.98); }
+
+      .table-card {
+        background: var(--white);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+      }
+      .table-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.25rem 0.875rem;
+        border-bottom: 1px solid var(--border);
+        background: var(--aqua);
+      }
+      .table-title { font-size: 0.875rem; font-weight: 600; color: var(--aqua-text); }
+      .count-badge {
+        font-size: 0.72rem;
+        font-weight: 600;
+        background: var(--aqua-text);
+        color: var(--aqua);
+        padding: 0.2rem 0.65rem;
+        border-radius: var(--radius-pill);
+      }
+
+      table { width: 100%; border-collapse: collapse; }
+      thead th {
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        padding: 0.75rem 1.25rem;
+        text-align: left;
+        background: rgba(202, 222, 219, 0.15);
+        border-bottom: 1px solid var(--border);
+      }
+      tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s; }
+      tbody tr:last-child { border-bottom: none; }
+      tbody tr:hover { background: rgba(202, 222, 219, 0.12); }
+      td { padding: 0.875rem 1.25rem; font-size: 0.875rem; color: var(--text-primary); vertical-align: middle; }
+
+      .id-badge {
+        display: inline-flex;
+        font-size: 0.72rem;
+        font-weight: 600;
+        background: var(--porcelain);
+        color: var(--porcelain-text);
+        border: 1px solid var(--porcelain-dark);
+        padding: 0.2rem 0.55rem;
+        border-radius: var(--radius-pill);
+      }
+
+      .user-cell { display: flex; align-items: center; gap: 0.625rem; }
+      .avatar {
+        width: 34px; height: 34px;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.72rem; font-weight: 600;
+        flex-shrink: 0;
+      }
+      .avatar-aqua  { background: var(--aqua);     color: var(--aqua-text); }
+      .avatar-porce { background: var(--porcelain); color: var(--porcelain-text); }
+      .avatar-mixed { background: var(--aqua-dark); color: var(--aqua-text); }
+      .user-name { font-weight: 500; }
+      .email-cell { color: var(--text-secondary); font-size: 0.84rem; }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrapper">
+
+      <header class="page-header">
+        <h1>User Management</h1>
+        <p>Add and view registered users</p>
+      </header>
+
+      <div class="add-card">
+        <p class="add-card-label">New User</p>
+        <form method="post" action="/" style="margin:0;">
+          <div class="form-row">
+            <div class="field-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Jane Smith" required>
+            </div>
+            <div class="field-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+            </div>
+            <button type="submit" class="btn-add">Add user</button>
+          </div>
+        </form>
+      </div>
+
+      
+
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-title">Users</span>
+          <span class="count-badge">{{ users|length }} total</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+            <tr>
+              <td><span class="id-badge">#{{ '%03d' % user.id }}</span></td>
+              <td>
+                <div class="user-cell">
+                  <div class="avatar {% if loop.index % 3 == 1 %}avatar-aqua{% elif loop.index % 3 == 2 %}avatar-porce{% else %}avatar-mixed{% endif %}">
+                    {{ user.name.split()[0][0] }}{{ user.name.split()[-1][0] if user.name.split()|length > 1 else '' }}
+                  </div>
+                  <span class="user-name">{{ user.name }}</span>
+                </div>
+              </td>
+              <td class="email-cell">{{ user.email }}</td>
+              <td>
+                <form method="post" action="/delete/{{ user.id }}" onsubmit="return confirm('Delete this user?');" style="display:inline">
+                  <button type="submit" class="icon-btn" title="Delete">✖</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </body>
+</html>
