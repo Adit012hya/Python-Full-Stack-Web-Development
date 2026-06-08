@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign In - Secure Auth{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h1>Sign In</h1>
+    <p class="subtext">Log in to view your details and statistics.</p>
+    
+    <form action="{{ url_for('login') }}" method="POST" novalidate>
+      <div class="form-group {% if errors and errors.username %}error{% endif %}">
+        <label for="username">USERNAME</label>
+        <input type="text" id="username" name="username" class="input-field" value="{{ values.username if values else '' }}" required autocomplete="username" placeholder="Username">
+        {% if errors and errors.username %}
+          <div class="error-text">{{ errors.username }}</div>
+        {% endif %}
+      </div>
+      
+      <div class="form-group {% if errors and errors.password %}error{% endif %}">
+        <label for="password">PASSWORD</label>
+        <input type="password" id="password" name="password" class="input-field" required autocomplete="current-password" placeholder="Password">
+        {% if errors and errors.password %}
+          <div class="error-text">{{ errors.password }}</div>
+        {% endif %}
+      </div>
+
+      <label class="checkbox-group" for="remember">
+        <input type="checkbox" id="remember" name="remember" {% if values and values.remember %}checked{% endif %}>
+        Remember me
+      </label>
+      
+      <button type="submit" class="btn" style="margin-top: 20px;">Login</button>
+    </form>
+    
+    <div class="auth-links">
+      New? <a href="{{ url_for('register') }}">Register</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

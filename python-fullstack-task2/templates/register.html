@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Account - Secure Auth{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h1>Create Account</h1>
+    <p class="subtext">Sign up to access your personal dashboard.</p>
+    
+    <form action="{{ url_for('register') }}" method="POST" novalidate>
+      <div class="form-group {% if errors and errors.username %}error{% endif %}">
+        <label for="username">USERNAME</label>
+        <input type="text" id="username" name="username" class="input-field" value="{{ values.username if values else '' }}" required autocomplete="username" placeholder="Enter username">
+        {% if errors and errors.username %}
+          <div class="error-text">{{ errors.username }}</div>
+        {% endif %}
+      </div>
+      
+      <div class="form-group {% if errors and errors.password %}error{% endif %}">
+        <label for="password">PASSWORD</label>
+        <input type="password" id="password" name="password" class="input-field" required autocomplete="new-password" placeholder="Enter secure password">
+        {% if errors and errors.password %}
+          <div class="error-text">{{ errors.password }}</div>
+        {% endif %}
+      </div>
+
+      <div class="form-group {% if errors and errors.confirm_password %}error{% endif %}">
+        <label for="confirm_password">CONFIRM PASSWORD</label>
+        <input type="password" id="confirm_password" name="confirm_password" class="input-field" required autocomplete="new-password" placeholder="Confirm your password">
+        {% if errors and errors.confirm_password %}
+          <div class="error-text">{{ errors.confirm_password }}</div>
+        {% endif %}
+      </div>
+      
+      <button type="submit" class="btn" style="margin-top: 20px;">Register</button>
+    </form>
+    
+    <div class="auth-links">
+      Already have account? <a href="{{ url_for('login') }}">Login</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

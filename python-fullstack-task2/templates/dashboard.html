@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Secure Auth{% endblock %}
+
+{% block header %}
+<header class="navbar">
+  <a href="{{ url_for('dashboard') }}" class="navbar-brand">SecureAuth</a>
+  <a href="{{ url_for('logout') }}" class="navbar-logout">Logout</a>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+  <div class="dashboard-card">
+    <div class="dashboard-welcome-header">
+      <h2>Welcome, {{ username }}</h2>
+      <span class="auth-badge">Session Verified</span>
+    </div>
+    
+    <div class="profile-section">
+      <ul class="profile-list">
+        <li class="profile-item">
+          <span class="profile-label">User ID</span>
+          <span class="profile-val">{{ user_id }}</span>
+        </li>
+        <li class="profile-item">
+          <span class="profile-label">Username</span>
+          <span class="profile-val">{{ username }}</span>
+        </li>
+        <li class="profile-item">
+          <span class="profile-label">Database Engine</span>
+          <span class="profile-val">SQLite 3</span>
+        </li>
+        <li class="profile-item">
+          <span class="profile-label">Session Status</span>
+          <span class="profile-val">Active (Secure Cookie)</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

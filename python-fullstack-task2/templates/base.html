@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Secure and modern user authentication interface built with Flask and styled with a custom Cherry and Cotton design system.">
+  <title>{% block title %}Secure Auth{% endblock %}</title>
+  <!-- Link style.css -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  {% block header %}{% endblock %}
+
+  <main class="container">
+    <div style="width: 100%;">
+      <!-- Flash Messages Container -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <ul class="flash-messages">
+            {% for category, message in messages %}
+              <li class="flash-msg {{ category }}">
+                <span>{{ message }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+
+</body>
+</html>
