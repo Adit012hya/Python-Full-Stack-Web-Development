@@ -1,4 +1,4 @@
-<img width="2068" height="1278" alt="Screenshot 2026-06-09 001818" src="https://github.com/user-attachments/assets/51e1ce9a-a15c-4c25-bbb8-376ae81ed98c" /># Flask User Authentication System - Task 2
+Authentication System - Task 2
 
 User registration, login, logout with session-based authentication.
 
