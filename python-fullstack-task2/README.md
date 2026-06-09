@@ -1,4 +1,4 @@
-# Flask User Authentication System - Task 2
+<img width="2068" height="1278" alt="Screenshot 2026-06-09 001818" src="https://github.com/user-attachments/assets/51e1ce9a-a15c-4c25-bbb8-376ae81ed98c" /># Flask User Authentication System - Task 2
 
 User registration, login, logout with session-based authentication.
 
@@ -12,6 +12,13 @@ Real web apps need secure user management. This project implements:
 - Session-based authentication
 - Protected routes
 - Secure logout
+
+---
+
+## Screenshots 
+Registration:<img width="2068" height="1278" alt="Screenshot 2026-06-09 001818" src="https://github.com/user-attachments/assets/99b02844-57ba-4fa2-8956-1683d408de2b" />
+Login: <img width="2074" height="1276" alt="Screenshot 2026-06-09 001839" src="https://github.com/user-attachments/assets/c1213c99-e709-4a33-aa63-42d811ad02b2" />
+Dashboard: <img width="2076" height="1274" alt="Screenshot 2026-06-09 001900" src="https://github.com/user-attachments/assets/638d324d-ce23-435e-9226-44b51c3c554c" />
 
 ---
 
